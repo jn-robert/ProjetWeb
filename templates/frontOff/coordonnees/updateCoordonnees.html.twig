@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="container">
+        <form method="post" action="{{ path('Coordonnees.validUpdate') }}">
+            <input type="hidden" name="_method" value="PUT">
+            <legend>Modifier les coordonnees</legend>
+            <div class="form-group">
+                <label>Nom Client :</label>
+                <input name="nomClient"  type="text"  size="18" value="{% if donnees.nomClient is defined and erreurs.nomClient is not defined %}{{ donnees.nomClient }}{% else %}{{coordonnees.getUsername()|default('')}}{% endif %}" class="form-control {% if erreurs.nomClient is defined %}is-invalid{% endif %}" >
+                {% if erreurs.nomClient is defined %}
+                    <div class="invalid-feedback">{{erreurs.nomClient}}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label>Email :</label>
+                <input name="email" type="text" value="{% if donnees.email is defined and erreurs.email is not defined %}{{ donnees.email }}{% else %}{{ coordonnees.getEmail()|default('')}}{% endif %}" class="form-control {% if erreurs.email is defined  %}is-invalid{% endif %}"/>
+                {% if erreurs.email is defined %}
+                    <div class="invalid-feedback">{{erreurs.email}}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label>Adresse :</label>
+                <input name="adresse"  type="text"  size="18"  value="{% if donnees.adresse is defined and erreurs.adresse is not defined %}{{ donnees.adresse }}{% else %} {{coordonnees.getAdresse()|default('')}} {% endif %}" class="form-control ">
+                {% if erreurs.adresse is defined %}
+                    <div class="invalid-feedback">{{erreurs.adresse}}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label>Code Postal :</label>
+                <input name="codePostal" type="text"  size="18"  value="{% if donnees.codePostal is defined and erreurs.codePostal is not defined %}{{ donnees.codePostal }}{% else %}{{coordonnees.getCodePostal()|default('')}}{% endif %}" class="form-control {% if erreurs.codePostal is defined %}is-invalid{% endif %}">
+                {% if erreurs.codePostal is defined %}
+                    <div class="invalid-feedback">{{erreurs.codePostal}}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label>Ville :</label>
+                <input name="ville" type="text"  size="18"  value="{% if donnees.ville is defined and erreurs.ville is not defined %}{{ donnees.ville }}{% else %}{{coordonnees.getVille()|default('')}}{% endif %}" class="form-control {% if erreurs.ville is defined %}is-invalid{% endif %}">
+                {% if erreurs.ville is defined %}
+                    <div class="invalid-feedback">{{erreurs.ville}}</div>
+                {% endif %}
+            </div>
+            <input type="hidden" name="token" value="{{  csrf_token('form_valid') }}">
+            <button type="submit" class="btn btn-primary">modifier</button>
+        </form>
+    </div>
+{% endblock %}

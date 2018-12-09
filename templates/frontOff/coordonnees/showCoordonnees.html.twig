@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="col-6">
+        <table class="table table-bordered">
+            <caption>Coordonnees</caption>
+            <thead>
+            <tr><th>Nom</th><th>Email</th><th>Adresse</th><th></th><th>Opérations</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if coordonnees is defined %}
+                <tr>
+                    <td>{{ coordonnees.getUsername() }}</td><td>{{ coordonnees.getEmail() }}</td>
+                    <td>{{ coordonnees.getAdresse() }} - {{ coordonnees.getCodePostal() }} {{ coordonnees.getVille() }}</td><td></td>
+                    <form action="{{ path('Coordonnees.update') }}" method="post">
+                        <td>
+                            <button type="submit" class="btn btn-primary">Modifier</button>
+                        </td>
+                    </form>
+                </tr>
+
+            {% endif %}
+            </tbody>
+        </table>
+        {% if coordonnees is defined %}
+            <form action="{{ path('Coordonnees.updateMDP') }}" method="post">
+                <button type="submit" class="btn btn-primary">Changer Mot de Passe</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
